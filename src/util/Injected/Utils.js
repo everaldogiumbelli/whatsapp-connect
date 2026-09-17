@@ -483,6 +483,14 @@ exports.LoadUtils = () => {
             ...extraOptions,
         };
 
+        // MediaData é um model cujo campo privado de ID (__x_id) colide com o campo
+        // privado de ID do Msg quando suas props enumeráveis são espalhadas acima
+        // (...mediaOptions). Sem remover, o WhatsApp Web 2026 lança "Data passed to
+        // getter must include an id property (it's how we memoize) but got undefined"
+        // ao enviar mídia (ex.: áudio em grupo). Ver PR meetscrm/whatsapp-web.js#67 /
+        // upstream wwebjs#201922.
+        delete message.__x_id;
+
         // Bot's won't reply if canonicalUrl is set (linking)
         if (botOptions) {
             delete message.canonicalUrl;
