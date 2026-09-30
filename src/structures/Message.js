@@ -568,6 +568,7 @@ class Message extends Base {
                         mediaKey: msg.mediaKey,
                         mediaKeyTimestamp: msg.mediaKeyTimestamp,
                         type: msg.type,
+                        mimetype: msg.mimetype,
                         signal: new AbortController().signal,
                         downloadQpl: mockQpl,
                     });
